@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>MoneyOK</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="../lib/ext/resources/css/ext-all.css">
+    <script type="text/javascript" src="../lib/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../lib/ext/ext-all.js"></script>
+	<script type="text/javascript" src="../lib/ext/ext-all-debug.js"></script>
+	<script type="text/javascript" src="../lib/ext/ext-lang-zh_TW.js"></script>
+    <script type="text/javascript" src="../js/globalfunction.js"></script>
+    <script type="text/javascript" src="../lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../lib/interface.js"></script>
+    <script type="text/javascript" src="../js/account.js"></script>
+	<script type="text/javascript" src="../js/transaction.js"></script>
+	<script type="text/javascript" src="../js/budget.js"></script>
+	<script type="text/javascript" src="../js/analysis.js"></script>
+	<script type="text/javascript" src="../js/mainList.js"></script>
+	<script type="text/javascript" src="../js/layout.js"></script>
+	<script language="JavaScript" src="../lib/FusionCharts.js"></script>
+	<script type="text/javascript" src="../js/stack-2.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="../lib/ext/examples/shared/icons/silk.css">
+	<link rel="stylesheet" type="text/css" href="../css/all-examples.css">
+	<link rel="stylesheet" type="text/css" href="../css/MoneyOK.css">
+  </head>
+    <script>
+
+	function accountAction(){
+		ac_store.load();
+//		ac_typeStore.load();
+		loadAccountChart();
+		account.show();
+		ac_store.on('load',function(){
+			tr_accountStore.load();
+		});
+		ac_store.on('remove',function(){
+			tr_accountStore.load();
+		});
+//		var ac = new Ext.get('ac_window');
+//		ac.slideIn('l',{
+//		    easing: 'easeOut',
+//		    duration: .5,
+//			callback:function(){
+//				ac_store.load();
+//				loadAccountChart();
+//			}
+//		});
+    }
+    function transactionAction(){
+		tr_store.load({
+			params:{dayNum:'0'}
+		});
+//		tr_accountStore.load();
+		loadTransactionChart();
+		transaction.show();
+
+	}
+	function budgetAction(){
+		bg_store.load();
+		loadBudgetChart();
+		budget.show();
+	}
+	function analysisAction(){
+		loadAnalysisChart();
+		analysis.show();
+	}
+Ext.onReady(function(){
+	document.getElementById("body").style.visibility="visible";
+//	var garbage = new Ext.FormPanel({
+//		frame:true,
+//		renderTo:'garbage',
+//		title:'垃圾桶',
+//		width:100,
+//		height:100
+//	});
+		
+	var garbageEl =  Ext.get('garbage');
+//	garbageEl.hide();
+	
+	garbageEl.addClass("garbageHide");
+	
+	var ddrow = new Ext.dd.DropTarget('garbage',{
+		ddGroup:'gridDDGroup',
+		copy:false,
+		
+		notifyEnter : function(ddSource, e, data) {
+			//Add some flare to invite drop.
+			garbageEl.fadeIn({endOpacity:1});
+		},
+	
+		notifyDrop : function(ddSource,e,data){
+			var rm_Records = tr_grid.getSelectionModel().getSelections();
+			Ext.MessageBox.confirm('提示','確定刪除？',function(btn){
+				if(btn=='yes'){
+					url = "../transaction.do?action=removeVarTransactionJSON";
+					remove(rm_Records,tr_store,url);
+				}
+			});
+		},
+		notifyOut:function(ddSource,e,data){
+			garbageEl.fadeOut({endOpacity:.25});
+		}
+	});
+	});
+  </script>
+  <body style="visibility:hidden;" id="body">	
+  	<div id="container">
+  		<div id="up" style="font-size:200%;">MoneyOK</div>
+		<div id="buttom" style="text-align:right;background-image:url(../img/back9.jpg);">Team of Yao God</div>
+ 		<div id="layout"></div>
+		<div id="center" align="center">
+			<div id="garbage"><img src="../css/images/garbage_red.png"  /></div>
+			<div id="ac_window"></div>
+			<div id="tr_window"></div>
+			<div id="bg_window"></div>
+			<div id="al_window"></div>
+		</div>
+		<div id="right"></div>	
+	</div>
+	
+<div id="dockMenu">
+	<!-- BEGIN STACK "DOWN" ============================================================ --> 
+	<div class="stack2"> 
+		<img src="../css/images/MoneyIcon1.png" alt="MoneyIcon"/> 
+		<ul id="stack2"> 
+			<li></li>
+			<li><a href="javascript:accountAction()"><span>Account</span><img src="../css/images/Account.png"  /></a></li> 
+			<li><a href="javascript:transactionAction()"><span>Transaction</span><img src="../css/images/Transaction.png"  /></a></li> 
+			<li><a href="javascript:budgetAction()"><span>Budget</span><img src="../css/images/Budget.png"  /></a></li> 
+			<li><a href="javascript:analysisAction()"><span>Analysis</span><img src="../css/images/Analysis.png"  /></a></li>			
+		</ul> 
+	</div><!-- end div .stack --> 
+	<!-- END STACK "DOWN" ============================================================ -->
+	<div class="exit"><a href="../user.do?action=logout"><img src="../css/images/exit.png"/></a></div>
+</div>
+<div id="tr_chartdiv" ></div>
+<div id="ac_chartdiv"></div>
+<div id="bg_chartdiv"></div>
+<div id="analysis">
+	<div id="analysis_chartdiv"></div>
+	<div id="detail_chartdiv">點選上面任一直柱 ， 顯示詳細資料</div>
+</div>
+  </body>
+</html>

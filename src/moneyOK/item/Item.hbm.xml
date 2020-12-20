@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-mapping 
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="moneyOK.item.Item" table="item">
+
+		<id name="id" column="it_id">
+			<generator class="native" />
+		</id>
+
+		<property name="name" column="it_name" />
+		<many-to-one name="parentCategory" class="moneyOK.item.Item"
+			column="it_parentId" cascade="none" lazy="false" />
+
+		<set name="childCategory" table="item" cascade="save-update"
+			inverse="true" lazy="false" outer-join="true">
+			<key column="it_parentId" />
+			<one-to-many class="moneyOK.item.Item" />
+		</set>
+
+		<!-- relation To user_item(M-N) !-->
+		<set name="users" table="user_item" cascade="all" lazy="false">
+			<key column="it_id" />
+			<many-to-many class="moneyOK.user.User" column="u_id" />
+		</set>
+	</class>
+</hibernate-mapping>

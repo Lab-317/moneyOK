@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart caption='項目圓餅圖' showPercentageValues='1' bgColor='EBEBFF' baseFontSize='16'>
+#set($result1=$!accountBook.ParentCategoryTotalMap.get("1"))  
+#set($result2=$!accountBook.ParentCategoryTotalMap.get("2") )  
+#set($result3=$!accountBook.ParentCategoryTotalMap.get("3") )  
+#set($result4=$!accountBook.ParentCategoryTotalMap.get("4") )  
+#set($result5=$!accountBook.ParentCategoryTotalMap.get("5") )  
+#set($result6=$!accountBook.ParentCategoryTotalMap.get("6") ) 
+   <set label='食' value='$result1' />
+   <set label='衣' value='$result2' />
+   <set label='住' value='$result3' />
+   <set label='行' value='$result4'/>
+   <set label='育' value='$result5'/>
+   <set label='樂' value='$result6'/>
+</chart>

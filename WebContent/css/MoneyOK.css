@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+#container{
+	margin:auto;
+	width:300px;
+	text-align:center;
+}
+.garbageHide{
+	position:absolute;
+	right:5px;
+	bottom:5px;
+	z-index:-999;
+}
+.garbageShow{
+	position:absolute;
+	right:5px;
+	bottom:5px;
+	z-index:20003;
+}
+.exit{
+	position:absolute;
+	background-image:url(../images/exit.png);
+	left:5px;
+	bottom:5px;
+}

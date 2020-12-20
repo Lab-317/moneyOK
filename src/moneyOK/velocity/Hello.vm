@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart caption='帳戶列表' xAxisName='帳戶名稱' yAxisName='金額' showValues='0' decimals='0' formatNumberScale='0' chartRightMargin='30'  baseFontSize='16'>
+#foreach( $account in $accounts )
+<set label='$account.name' value='$account.total' />
+#end
+</chart>

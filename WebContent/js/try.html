@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css"
+	href="../lib/ext/resources/css/ext-all.css">
+<script type="text/javascript" src="../lib/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../lib/ext/ext-all.js"></script>
+<script type="text/javascript" src="../lib/ext/ext-lang-zh_TW.js"></script>
+<script type="text/javascript" src="../js/account.js"></script>
+<!-- A Localization Script File comes here -->
+<script type="text/javascript">
+Ext.onReady(function() {
+    var win = new Ext.Window({
+         title:'Form with Tabs in Window Example'
+        ,width:640
+        ,height:480
+        ,layout:'fit'
+        ,border:false
+        ,items:[{ // form
+             xtype:'form'
+            ,border:false
+            ,items:[{ // tabpanel
+                 xtype:'tabpanel'
+                ,activeTab:0
+                ,anchor:'100% 100%'
+                ,bodyStyle:'padding:10px'
+                ,items:[{ // tabs
+                     title:'Tab 1'
+                    ,layout:'form'
+                    ,labelWidth:60
+                    ,defaults:{xtype:'textfield', anchor:'100%'}
+                    ,items:[{ // fields
+                         fieldLabel:'Field 1'
+                        ,name:'field1'
+                    },{
+                         fieldLabel:'Field 2'
+                        ,name:'field2'
+                    },{
+                         xtype:'checkbox'
+                        ,fieldLabel:'Checkbox'
+                        ,hideParent:true
+                        ,name:'cb1'
+                        ,id:'cb1'
+                        ,anchor:null
+                    }]
+                },{
+                     title:'Tab 2'
+                    ,layout:'form'
+                    ,labelWidth:60
+                    ,defaults:{xtype:'textfield', anchor:'100%'}
+                    ,items:[{ // fields
+                         fieldLabel:'Field 3'
+                        ,name:'field3'
+                    },{
+                         fieldLabel:'Field 4'
+                        ,name:'field4'
+                    }]
+                }]
+            }]
+        }]
+        ,buttons:[{
+            text:'Submit'
+        },{
+            text:'Cancel'
+        }]
+        ,tbar:[{
+            xtype:'datefield'
+        }, '-', {
+            text:'Button'
+        },{
+			 xtype:'checkbox'
+            ,fieldLabel:'Checkbox'
+            ,hideParent:true
+            ,name:'cb1'
+            ,id:'cb1'
+            ,anchor:null
+		}]
+    });
+    win.show();
+});
+    </script>
+<title>Form with Tabs in Window Example</title>
+</head>
+</html>

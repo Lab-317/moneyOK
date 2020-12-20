@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart caption='' xAxisName='' yAxisName='' showValues='0' decimals='0' formatNumberScale='0' chartRightMargin='30' baseFontSize='14'>
+#foreach( $element in $detail )
+<set label='$element.CatName' value='$element.total' />
+#end
+</chart>

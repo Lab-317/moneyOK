@@ -1,0 +1,157 @@
+/*
+body {
+	font: 11px Arial, Helvetica, sans-serif;
+	background: #ffffff url(images/main-bg.gif);
+	padding: 0;
+	margin: 0;
+}
+img {
+	border: none;
+}
+*/ /* first - top */
+.dock {
+	width: 100%;
+	bottom: -5%;
+	position: relative;
+	left: -45%;
+}
+
+.dock-container {
+	position: relative;
+	height: 100px;
+	background: none;
+	padding-left: 20px;
+}
+
+a.dock-item {
+	display: block;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	width: 40px;
+	color: #000;
+	bottom: 0px;
+	position: absolute;
+	text-align: center;
+	text-decoration: none;
+}
+
+.dock-item img {
+	border: none;
+	margin: 5px 10px 0px;
+	width: 100%;
+}
+
+.dock-item span {
+	display: none;
+	padding-left: 20px;
+}
+
+/* second - bottom */
+#dock2 {
+	width: 100%;
+	bottom: -15%;
+	position: relative;
+	left: -45%;
+}
+
+.dock-container2 {
+	position: relative;
+	height: 100px;
+	background: none;
+	padding-left: 20px;
+}
+
+a.dock-item2 {
+	display: block;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	width: 40px;
+	color: #000;
+	bottom: 0px;
+	position: absolute;
+	text-align: center;
+	text-decoration: none;
+}
+
+.dock-item2 span {
+	display: none;
+	padding-left: 20px;
+}
+
+.dock-item2 img {
+	border: none;
+	margin: 5px 10px 0px;
+	width: 100%;
+}
+
+/* third - bottom */
+#dock3 {
+	width: 100%;
+	bottom: -25%;
+	position: relative;
+	left: -45%;
+}
+
+.dock-container3 {
+	position: relative;
+	height: 100px;
+	background: none;
+	padding-left: 20px;
+}
+
+a.dock-item3 {
+	display: block;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	width: 40px;
+	color: #000;
+	bottom: 0px;
+	position: absolute;
+	text-align: center;
+	text-decoration: none;
+}
+
+.dock-item3 span {
+	display: none;
+	padding-left: 20px;
+}
+
+.dock-item3 img {
+	border: none;
+	margin: 5px 10px 0px;
+	width: 100%;
+}
+
+/* 4 - bottom */
+#dock4 {
+	width: 100%;
+	bottom: -35%;
+	position: relative;
+	left: -45%;
+}
+
+.dock-container4 {
+	position: relative;
+	height: 100px;
+	background: none;
+	padding-left: 20px;
+}
+
+a.dock-item4 {
+	display: block;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	width: 40px;
+	color: #000;
+	bottom: 0px;
+	position: absolute;
+	text-align: center;
+	text-decoration: none;
+}
+
+.dock-item4 span {
+	display: none;
+	padding-left: 20px;
+}
+
+.dock-item4 img {
+	border: none;
+	margin: 5px 10px 0px;
+	width: 100%;
+}

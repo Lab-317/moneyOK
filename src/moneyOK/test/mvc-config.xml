@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING/DTD BEAN/EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>jdbc.properties</value>
+		</property>
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>${database.driver}</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://140.115.82.71:3306/moneyOK</value>
+		</property>
+		<property name="username">
+			<value>${database.user}</value>
+		</property>
+		<property name="password">
+			<value>${database.password}</value>
+		</property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		destroy-method="destroy">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>moneyOK/accountBook/Accountbook.hbm.xml</value>
+				<value>moneyOK/account/Account.hbm.xml</value>
+				<value>moneyOK/item/Item.hbm.xml</value>
+				<value>moneyOK/user/User.hbm.xml</value>
+				<value>moneyOK/transaction/Transaction.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+                </prop>
+				<prop key="hibernate.show_sql">
+					false
+                </prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 以下為url mapping !-->
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/user.do">userController</prop>
+				<prop key="/transaction.do">transactionController</prop>
+				<prop key="/account.do">accountController</prop>
+				<prop key="/item.do">itemController</prop>
+				<prop key="/chart.do">chartController</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 以下為DAO xml !-->
+	<bean id="itemDAO" class="moneyOK.item.ItemDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="userDAO" class="moneyOK.user.UserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="accountDAO" class="moneyOK.account.AccountDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="accountBookDAO" class="moneyOK.accountBook.AccountBookDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="transactionDAO" class="moneyOK.transaction.TransactionDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 以下為service xml !-->
+	<bean id="transactionService" class="moneyOK.transaction.TransactionService">
+		<property name="accountDAO">
+			<ref bean="accountDAO" />
+		</property>
+		<property name="itemDAO">
+			<ref bean="itemDAO" />
+		</property>
+		<property name="transactionDAO">
+			<ref bean="transactionDAO" />
+		</property>
+	</bean>
+	<bean id="itemService" class="moneyOK.item.ItemService">
+		<property name="itemDAO">
+			<ref bean="itemDAO" />
+		</property>
+		<property name="userDAO">
+			<ref bean="userDAO" />
+		</property>
+		<property name="accountBookService">
+			<ref bean="accountBookService" />
+		</property>
+	</bean>
+	<bean id="userService" class="moneyOK.user.UserService">
+		<property name="userDAO">
+			<ref bean="userDAO" />
+		</property>
+		<property name="itemService">
+			<ref bean="itemService" />
+		</property>
+	</bean>
+	<bean id="chartService" class="moneyOK.chart.ChartService">
+
+		<property name="accountService">
+			<ref bean="accountService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="accountBookService">
+			<ref bean="accountBookService" />
+		</property>
+		<property name="itemService">
+			<ref bean="itemService" />
+		</property>
+	</bean>
+	<bean id="accountService" class="moneyOK.account.AccountService">
+		<property name="accountDAO">
+			<ref bean="accountDAO" />
+		</property>
+		<property name="accountBookService">
+			<ref bean="accountBookService" />
+		</property>
+	</bean>
+	<bean id="accountBookService" class="moneyOK.accountBook.AccountBookService">
+		<property name="accountBookDAO">
+			<ref bean="accountBookDAO" />
+		</property>
+	</bean>
+	<bean id="paraMethodResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName">
+			<value>action</value>
+		</property>
+		<property name="defaultMethodName">
+			<value>list</value>
+		</property>
+	</bean>
+
+	<!-- 以下為controller xml !-->
+	<bean id="itemController" class="moneyOK.item.ItemController">
+		<property name="methodNameResolver">
+			<ref bean="paraMethodResolver" />
+		</property>
+		<property name="itemService">
+			<ref bean="itemService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	<bean id="userController" class="moneyOK.user.UserController">
+		<property name="methodNameResolver">
+			<ref bean="paraMethodResolver" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="chartService">
+			<ref bean="chartService" />
+		</property>
+	</bean>
+	<bean id="accountController" class="moneyOK.account.AccountController">
+		<property name="methodNameResolver">
+			<ref bean="paraMethodResolver" />
+		</property>
+		<property name="accountService">
+			<ref bean="accountService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="accountBookService">
+			<ref bean="accountBookService" />
+		</property>
+		<property name="chartService">
+			<ref bean="chartService" />
+		</property>
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean id="transactionController" class="moneyOK.transaction.TransactionController">
+		<property name="methodNameResolver">
+			<ref bean="paraMethodResolver" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="itemService">
+			<ref bean="itemService" />
+		</property>
+		<property name="transactionService">
+			<ref bean="transactionService" />
+		</property>
+		<property name="accountService">
+			<ref bean="accountService" />
+		</property>
+		<property name="accountBookService">
+			<ref bean="accountBookService" />
+		</property>
+		<property name="chartService">
+			<ref bean="chartService" />
+		</property>
+	</bean>
+	<bean id="chartController" class="moneyOK.chart.ChartController">
+		<property name="methodNameResolver">
+			<ref bean="paraMethodResolver" />
+		</property>
+	</bean>
+</beans>
+

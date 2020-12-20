@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-mapping 
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="moneyOK.account.Account" table="account">
+
+		<id name="id" column="ac_id">
+			<generator class="native" />
+		</id>
+
+		<set name="fix_transaction" table="fix_transaction" cascade="all"
+			lazy="false">
+			<key column="aid" />
+			<one-to-many class="moneyOK.transaction.FixedTransaction" />
+		</set>
+		<set name="var_transaction" table="var_transaction" cascade="all"
+			lazy="false">
+			<key column="aid" />
+			<one-to-many class="moneyOK.transaction.VariableTransaction" />
+		</set>
+		<property name="type" column="ac_type" />
+		<property name="name" column="ac_name" />
+		<property name="total" column="ac_total" />
+		<property name="description" column="ac_description" />
+
+		<!-- relation To budgets(1-M) !-->
+		<set name="budgets" table="budget" cascade="all" lazy="false">
+			<key column="bg_aid" />
+			<one-to-many class="moneyOK.budget.Budget" />
+		</set>
+	</class>
+</hibernate-mapping>

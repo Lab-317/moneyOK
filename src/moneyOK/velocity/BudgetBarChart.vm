@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart caption='預算列表' xAxisName='預算名稱' yAxisName='金額' showValues='0' numberPrefix='$'  formatNumberScale='0' baseFontSize='16'>
+<categories>
+#foreach( $account in $accounts )
+#foreach( $budget in $account.budgets )
+<category label='$budget.name' />
+#end
+#end
+</categories>
+
+
+   <dataset seriesName='餘額'>
+#foreach( $account in $accounts )
+#foreach( $budget in $account.budgets )
+<set value='$budget.total' />
+#end
+#end
+   </dataset>
+      <dataset seriesName='已花費'>
+#foreach( $account in $accounts )
+#foreach( $budget in $account.budgets )
+#set( $amount = $budget.amount )
+#set( $total = $budget.total )
+#set( $result = $amount - $total)
+<set value='$result' />
+#end
+#end
+   </dataset>
+</chart>

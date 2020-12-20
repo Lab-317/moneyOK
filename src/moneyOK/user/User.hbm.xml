@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-mapping 
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="moneyOK.user.User" table="user">
+
+		<id name="id" column="u_id">
+			<generator class="native" />
+		</id>
+
+		<property name="email" column="u_email" />
+		<property name="password" column="u_password" />
+
+		<!-- relation To accountbook_user(M-N) !-->
+		<set name="accountBook" table="accountbook_user" cascade="all"
+			lazy="false">
+
+			<key column="u_id" />
+			<many-to-many class="moneyOK.accountBook.AccountBook"
+				column="acb_id" />
+		</set>
+
+		<!-- relation To user_item(M-N) !-->
+		<set name="items" table="user_item" cascade="all" lazy="false">
+			<key column="u_id" />
+			<many-to-many class="moneyOK.item.Item" column="it_id" />
+		</set>
+	</class>
+</hibernate-mapping>

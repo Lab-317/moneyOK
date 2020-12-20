@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-mapping 
+    PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="moneyOK.budget.Budget" table="budget">
+
+		<id name="id" column="bg_id">
+			<generator class="native" />
+		</id>
+
+		<property name="name" column="bg_name" />
+		<property name="description" column="bg_description" />
+		<property name="amount" column="bg_amount" />
+		<property name="total" column="bg_total" />
+		<property name="startDate" column="bg_startDate" type="date" />
+		<property name="endDate" column="bg_endDate" type="date" />
+
+		<!-- relation To item(M-1) save-update,persist! -->
+		<many-to-one name="item" column="bg_iid" class="moneyOK.item.Item"
+			cascade="save-update,persist" outer-join="true" unique="true" />
+	</class>
+</hibernate-mapping>
