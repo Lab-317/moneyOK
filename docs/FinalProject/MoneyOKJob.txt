@@ -1,0 +1,45 @@
+P.390 局部更新網頁內容
+Page變換
+
+getSpecificDateVarTransactionJSON
+
+可選擇以何者為group觀看並增刪改查
+
+Work:
+logo,
+mainlist,
+bug:renderer,
+budget,
+budgetchart,
+tabPanel,
+月報表,
+轉移
+
+
+
+
+TestWork:
+accountjs:remove
+trasaction: Test
+
+ToBework:
+account:combobox_json_get
+transaction:
+	{
+	tab:天,分類,金錢
+	checkbutton:收入,支出
+	field:總額
+	combobox:天數[週,月,年]
+	action:find
+	}
+
+account:{
+	tab:全部,現金,金融帳戶,儲值卡
+	field:總額
+	}
+
+needController:
+account : give me type
+transaction: give me type,item,total
+
+****transaction: pId change to category
